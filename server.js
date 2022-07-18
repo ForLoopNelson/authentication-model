@@ -6,15 +6,17 @@ const connectDB = require("./db") //uses another file
 const { adminAuth, userAuth } = require("./middleware/auth")
 
 require("dotenv").config()
+app.set("view engine", "ejs")
 
 //calls the file to connect to DB
 connectDB()
 
 app.use(express.json())
-app.use("/api/Auth", require("./auth/Route"))
+app.use(cookieParser())
+app.use("/api/Auth", require("./Auth/Route"))
 
 // Routes
-app.use("/api/auth", require("./Auth/route"))
+// app.use("/api/auth", require("./Auth/route"))
 
 app.get("/", (req, res) => res.render("home"))
 app.get("/register", (req, res) => res.render("register"))
